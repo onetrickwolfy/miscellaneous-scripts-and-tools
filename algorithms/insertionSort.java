@@ -15,8 +15,6 @@ public class insertionSort {
                 array[j] = prev;
                 j--;
             }
-
-            myArrayUtils.print_array(array);
         }
 
         return array;
