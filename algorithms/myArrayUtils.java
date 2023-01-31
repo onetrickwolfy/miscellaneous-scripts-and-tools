@@ -50,4 +50,14 @@ public class myArrayUtils {
 
         return res;
     }
+
+    // Swaps two items from an array
+    public static int[] swap(int[] array, int index_a, int index_b) {
+        int buffer = array[index_a];
+        array[index_a] = array[index_b];
+        array[index_b] = buffer;
+
+        return array;
+    }
+
 }

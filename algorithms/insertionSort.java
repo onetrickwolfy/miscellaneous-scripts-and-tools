@@ -16,10 +16,9 @@ public class insertionSort {
             // In am guessing using linked lists would be smarter
             // As we'd save a hell lot of swaps.
             while(j > 0 && array[j-1] >= array[j]) {
-                int prev = array[j-1];
-                int next = array[j];
-                array[j-1] = next;
-                array[j] = prev;
+                int prev = j-1;
+                int next = j;
+                array = myArrayUtils.swap(array, prev, next);
                 j--;
             }
         }

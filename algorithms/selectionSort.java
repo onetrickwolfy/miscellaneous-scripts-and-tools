@@ -22,9 +22,7 @@ public class selectionSort {
 
             // Pushing the bigger values to the end
             // replacing them with the min.
-            array[index_min] = array[i];
-            array[i] = min;
-
+            array = myArrayUtils.swap(array, index_min, i);
         }
 
         return array;

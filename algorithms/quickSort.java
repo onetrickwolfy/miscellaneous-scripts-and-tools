@@ -5,49 +5,57 @@ import java.util.Arrays;
 
 public class quickSort {
 
-    public static int[] sort(int[] array) {
-        // if {a} or {} we're done breaking them down.
-        if (array.length <= 1) {
-            return array;
-        }
 
-        int pivot = array[0];
-        // creating three partions
-        // one for elements smaller than pivot
-        // one for elements that are equal
-        // one for bigger elements.
-        ArrayList<Integer> arr_a = new ArrayList<>();
-        ArrayList<Integer> arr_b = new ArrayList<>();
-        ArrayList<Integer> arr_elem = new ArrayList<>();
+    public static int[] sort(int[] array, int min, int max) {
+        if (max != min) {
+            // let's choose a pivot
+            int pivot = array[max];
+            int left = min;
+            int right = max - 1; // we should certainly not swap the pivot before knowing it's position...
 
-        // Inserting elements in the right partition.
-        for(int i = 0; i < array.length; i++) {
-            if(array[i] < pivot) {
-                arr_a.add(array[i]);
-            } else if (array[i] > pivot) {
-                arr_b.add(array[i]);
-            } else {
-                arr_elem.add(array[i]);
+            while (left < right) {
+                // if the number on the left is greater or equal than the pivot
+                if(array[left] >= pivot) {
+                    // if equal, the number on the left is at the right place.
+                    // let's find the potential next number we can swap for the number on the right
+                    if (array[right] == array[left] && array[left] == pivot) {
+                        left++;
+                    // if the number on the right is greater than the pivot
+                    // it aint a good deal
+                    // let's decrement the right hoping to find a smaller number
+                    // it's already on the right side
+                    } else if (array[right] > pivot) {
+                        right--;
+                    // otherwise that mean we can swap both number
+                    // making it is each is on the right side
+                    } else {
+                        array = myArrayUtils.swap(array, left, right);
+                        right--;
+                        left++;
+                    }
+                // in case the number on the left is less than the pivot
+                } else {
+                    // if the right is bigger, it's already at the right place
+                    if (array[right] > pivot) {
+                        right--;
+                    // in every other case the number on the left is at the right place
+                    } else {
+                        left++;
+                    }
+                }
             }
+    
+            array = myArrayUtils.swap(array, left + 1, max);
+            array = sort(array, min, left);
+            array = sort(array, right+1, max);  
         }
 
-        // Converting them to primitive array.
-        int[] native_arr_a = arr_a.stream().mapToInt(Integer::intValue).toArray();
-        int[] native_arr_b = arr_b.stream().mapToInt(Integer::intValue).toArray();
-        int[] native_arr_elem = arr_elem.stream().mapToInt(Integer::intValue).toArray();
-
-        // concating the results: [lesser][equal][bigger]
-        // and breaking down the arrays utils they're 1 or 0 elements.
-        // using linked lists would seem smarter though I wanted to stick to primitive arrays
-        // hence he "unnecessary conversion"
-        // I'm trying to learn so the logic matters less.
-        return myArrayUtils.concat(sort(native_arr_a), native_arr_elem, sort(native_arr_b));
+        return array;
     }
-
     
     public static void main(String[] args) {
-        int to_sort[] = {1, 45, 6, 9, 76, 16, 2, 2, 0, 4,65 ,7, 21, 87, 54, 1, 2, 0, 3};
-
-        myArrayUtils.print_array(sort(to_sort));
+        int to_sort[] = {1, 45, 6, 9, 76, 16, 2, 2, 0, 4,65 ,7, 21, 87, 54, 1, 2, 3, 1, 2, 4, 0};
+        sort(to_sort, 0, to_sort.length - 1);
+        myArrayUtils.print_array(sort(to_sort, 0, to_sort.length - 1));
     }
 }

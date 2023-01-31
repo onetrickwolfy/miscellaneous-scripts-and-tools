@@ -8,12 +8,11 @@ public class bubbleSort {
         for(int i = 0; i < array.length-1; i++) {
             // for each iteration, we have n-1 problem.
             for (int j = 0; j <  array.length-1-i; j++) {
-                int previous = array[j];
-                int next = array[j+1];
+                int previous = j;
+                int next = j + 1;
 
-                if(previous > next) {
-                    array[j] = next;
-                    array[j+1] = previous;
+                if(array[previous] > array[next]) {
+                    array = myArrayUtils.swap(array, j, j+1);
                 }
             }
         }
