@@ -3,13 +3,16 @@ package sort;
 public class selectionSort {
     public static int[] sort(int[] array) {
         
-        // Le dernier element est forcement le plus grand.
-        // On va prendre une valeur, chcherche le min, swapper, on incremente.
+        // the last element is always the biggest after n - 1 itterations.
+        // After each iterations, [0 : lengh - i] is sorted as we looked for the min
+        // within the unsortored part of the array.
+        // Altough they both have the same worst case complexity,
+        // it seems this algorithm would perform better than bubbleSort as it requires less swaps.
         for(int i = 0; i < array.length - 1; i++) {
             int min = array[i];
             int index_min = i;
 
-            // On cherche min a partir du precedent min.
+            // Looking for the min within [i+1:array.length] (unsorted)
             for(int j = i + 1; j < array.length; j++) {
                 if (array[j] < min) {
                     min = array[j];
@@ -17,9 +20,11 @@ public class selectionSort {
                 }
             }
 
-            // On swap the min.
+            // Pushing the bigger values to the end
+            // replacing them with the min.
             array[index_min] = array[i];
             array[i] = min;
+
         }
 
         return array;

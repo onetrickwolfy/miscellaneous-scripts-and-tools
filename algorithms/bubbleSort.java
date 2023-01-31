@@ -3,16 +3,14 @@ package sort;
 public class bubbleSort {
 
     public static int[] sort(int[] array) {
-        // on va chercher a swapper les elements 1 a 1 a partir d'une point de depart
-        // de sorte que a la derniere itteration de la boule [i], le dernier est au bon endroit.
-        // on recommande jusqu'a i-1
-        // on va jusqu'a taille - 1 pour eviter une erreur sur array[j+1]
+        // Starting from index 0, if previous > next, swapping the elements.
+        // At the end of the first iteration, the biggest has been pushed to the end of the array.
         for(int i = 0; i < array.length-1; i++) {
+            // for each iteration, we have n-1 problem.
             for (int j = 0; j <  array.length-1-i; j++) {
                 int previous = array[j];
                 int next = array[j+1];
 
-                // [15, 10]... prev = 15, next = 10... if 15 > 10
                 if(previous > next) {
                     array[j] = next;
                     array[j+1] = previous;

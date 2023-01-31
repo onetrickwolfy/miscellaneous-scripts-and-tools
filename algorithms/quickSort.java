@@ -6,17 +6,21 @@ import java.util.Arrays;
 public class quickSort {
 
     public static int[] sort(int[] array) {
-
+        // if {a} or {} we're done breaking them down.
         if (array.length <= 1) {
             return array;
         }
 
         int pivot = array[0];
-        // on creer deux partitions
-
+        // creating three partions
+        // one for elements smaller than pivot
+        // one for elements that are equal
+        // one for bigger elements.
         ArrayList<Integer> arr_a = new ArrayList<>();
         ArrayList<Integer> arr_b = new ArrayList<>();
         ArrayList<Integer> arr_elem = new ArrayList<>();
+
+        // Inserting elements in the right partition.
         for(int i = 0; i < array.length; i++) {
             if(array[i] < pivot) {
                 arr_a.add(array[i]);
@@ -27,10 +31,16 @@ public class quickSort {
             }
         }
 
+        // Converting them to primitive array.
         int[] native_arr_a = arr_a.stream().mapToInt(Integer::intValue).toArray();
         int[] native_arr_b = arr_b.stream().mapToInt(Integer::intValue).toArray();
         int[] native_arr_elem = arr_elem.stream().mapToInt(Integer::intValue).toArray();
 
+        // concating the results: [lesser][equal][bigger]
+        // and breaking down the arrays utils they're 1 or 0 elements.
+        // using linked lists would seem smarter though I wanted to stick to primitive arrays
+        // hence he "unnecessary conversion"
+        // I'm trying to learn so the logic matters less.
         return myArrayUtils.concat(sort(native_arr_a), native_arr_elem, sort(native_arr_b));
     }
 
