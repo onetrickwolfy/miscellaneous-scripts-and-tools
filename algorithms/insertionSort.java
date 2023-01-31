@@ -3,12 +3,11 @@ package sort;
 public class insertionSort {
 
     public static int[] sort(int[] array) {
-        // on bouge le pivot a chaque itteration
+        // selecting the first unsorted, putting it at the right place.
         for(int pivot = 1; pivot < array.length; pivot++) {
             int j = pivot;
-            // tant que precendent superieur a prochain
-            // on swap et on decremente.
-            // j > 0 pour arreter que si atteint la fin
+            // let's swap/shift the pivot until it's at the right place
+            // Doing it this way we don't have to recreate an arra
             while(j > 0 && array[j-1] >= array[j]) {
                 int prev = array[j-1];
                 int next = array[j];
@@ -16,6 +15,8 @@ public class insertionSort {
                 array[j] = prev;
                 j--;
             }
+
+            myArrayUtils.print_array(array);
         }
 
         return array;
